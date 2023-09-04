@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% block content %}
 <h2 style="text-align: center;">{% block title %}Welcome to My Recipe Website{% endblock %}</h2>
 
-{% set categories = ['Breakfast', 'Lunch', 'Dinner', 'Salad', 'Fresh Fruits'] %} {% for category in categories %}
+{% set categories = ['Breakfast', 'Lunch', 'Dinner', 'Salad', 'FreshFruits'] %} {% for category in categories %}
 <h4 style="text-align: center;">{{ category|capitalize }} Recipes</h4>
 <hr>
 

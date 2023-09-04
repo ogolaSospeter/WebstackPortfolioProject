@@ -92,6 +92,10 @@ def adminpost(post_id):
     post = admin_post(post_id)
     return render_template('adminPages/adminPost.html', post=post)
 
+@app.route('/payment')
+def payment():
+    return render_template('payment.html')
+
 @app.route('/<int:id>/delete', methods=('POST','GET'))
 def delete(id):
     post = wait_item(id)
@@ -126,8 +130,12 @@ def edit(id):
         ingredients = request.form['ingredient']
         procedure = request.form['procedure']
         img1 = request.form['img1']
-        img2 = request.form['img2']
+        img2 = request.form['img2'] 
+        if img2 == '':
+            img2 = img1
         img3 = request.form['img3']
+        if img3 == '':
+            img3 = img1
 
         conn = get_db_connection()
         conn.execute('UPDATE recipes SET  rname = ?, rcategory = ?, rimage = ?, rdescription = ?, ringredients = ?, rprocedure = ?, image1 = ?, image2 = ?, image3 = ? WHERE id = ?',(name,category,image,description,ingredients,procedure,img1,img2,img3, id,))
@@ -166,6 +174,20 @@ def wait_item(item):
     if itm is None:
         abort(404)
     return itm
+
+def get_moduled_post(post_cat):
+    conn = get_db_connection()
+    cats = conn.execute('SELECT * FROM recipes WHERE rcategory = ?',
+                        (post_cat,)).fetchall()
+    conn.close()
+    if cats is None:
+        abort(404)
+    return cats
+
+@app.route('/adminmoduled_cat/<post_cat>')
+def adminmoduled_cat(post_cat):
+    cats = get_moduled_post(post_cat)
+    return render_template('adminPages/adminmoduled.html',cats=cats,post_cat=post_cat)
 
 # @app.route('/<int:item>/itm', methods=('GET', 'POST'))
 # def itm(item):
