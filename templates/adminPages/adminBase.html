@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../static/styles/bases.css?{{ cache_id }}">
 
-    <title style="text-align: center;">{% block title %} {% endblock %}</title>
+    <title style="display: flex; justify-content: center;">{% block title %} {% endblock %}</title>
 
     <style>
         /* Add any styles you want for the sticky navbar */
@@ -30,9 +30,10 @@
             left: 0;
             width: 180px;
             height: 100vh;
-            background-color: #f8f9fa;
+            background-color: #1976D2;
             padding-top: 50px;
             overflow-y: auto;
+            text-decoration-color: white;
             /* Enable vertical scrolling for the sidebar */
             transition: all 0.3s ease;
         }
@@ -43,19 +44,28 @@
         }
         
         .sidebar-nav .nav-link {
-            color: #000;
+            color: #f8f7f7;
             display: block;
             padding: 10px;
             border-bottom: 1px solid #ccc;
         }
         
         .sidebar-nav .nav-link:hover {
-            background-color: #e9ecef;
+            background-color: #03791d;
+        }
+        
+        .sidebar-nav .nav-link:active {
+            background-color: #03791d;
+            color: white;
+        }
+        
+        .sidebar-nav .nav-link.selected {
+            background-color: #03791d;
+            color: white;
         }
         
         .sidebar .profile-image {
             text-align: center;
-            padding: 5px;
         }
         
         .content {
@@ -79,6 +89,72 @@
         .collapsed .sidebar .profile-image {
             display: none;
         }
+        /* In your CSS file */
+        
+        .success {
+            color: #155724;
+            /* Text color for success messages */
+            background-color: #d4edda;
+            /* Background color for success messages */
+            border-color: #c3e6cb;
+            /* Border color for success messages */
+        }
+        
+        .namerow {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            flex: content;
+            flex-flow: row;
+        }
+        
+        .itemcard {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            width: 600pt;
+            max-height: max-content;
+            align-items: center;
+            align-content: center;
+            border-radius: 10px;
+            text-align: center;
+            padding: 10px;
+            margin-bottom: 20px;
+            /* Add cursor pointer to indicate it's clickable */
+        }
+        
+        .titlecard {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            width: 200pt;
+            max-height: max-content;
+            align-items: center;
+            align-content: center;
+            border-radius: 10px;
+            text-align: center;
+            padding: 10px;
+            margin-bottom: 20px;
+            background-color: rgb(209, 184, 151);
+            /* Add cursor pointer to indicate it's clickable */
+        }
+        
+        .buttoncard {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            width: 100%;
+            align-items: center;
+            align-content: center;
+            border-radius: 1px;
+            text-align: center;
+            padding: 10px;
+            margin-bottom: 20px;
+            /* Add cursor pointer to indicate it's clickable */
+        }
+        /* Style for the auto-resize textarea */
+        
+        .auto-resize-textarea {
+            resize: none;
+            /* Disable user-resizing */
+            overflow: hidden;
+            /* Hide any overflowing content */
+        }
     </style>
 </head>
 
@@ -91,7 +167,7 @@
             <div class="collapse navbar-collapse justify-content-center" id="navbarColor01">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" href="{{ url_for('index')}}">HomeRecipes</a>
+                        <a class="nav-link active" href="{{ url_for('admin')}}">HomeRecipes</a>
                     </li>
 
                     <li class="nav-item">
@@ -105,7 +181,10 @@
                 <br>
                 <!-- Notification Icon-->
                 <button type="button" class="btn btn-primary">
-                    Notifications <span class="badge badge-light">4</span>
+                    <a href="{{ url_for('notifications') }}" class="nav-link active">
+                        Notifications <span class="badge badge-light">0</span>
+                    </a>
+
                   </button>
 
             </div>
@@ -145,8 +224,8 @@
             </li>
             <br><br><br>
             <li class="nav-item">
-                <div class="profile-image" style="border-radius: 50%; width: 40px; height: 40px;">
-                    <img src="https://photos.app.goo.gl/Fve2v83kXiE1eEKi6" style="border-radius: 50%; width: 100; height: 100;">
+                <div style="border-radius: 50%; width: 40px; height: 40px;">
+                    <img src="/templates//images/IMG_20230820_070518_8.jpg">
                 </div>
             </li>
         </ul>
@@ -185,6 +264,28 @@
             var sidebar = document.querySelector('.sidebar');
             sidebar.classList.toggle('collapsed');
         }
+    </script>
+
+    <!-- /* JavaScript to automatically resize the textarea based on content */ -->
+    <script>
+        // Get all auto-resize textareas on the page
+        const textareas = document.querySelectorAll(".auto-resize-textarea");
+
+        // Function to resize the textarea based on content
+        function resizeTextarea() {
+            this.style.height = "auto"; // Reset height to auto
+            this.style.height = this.scrollHeight + "px"; // Set height to match content
+        }
+
+        // Attach the resizeTextarea function to each textarea's input event
+        textareas.forEach((textarea) => {
+            textarea.addEventListener("input", resizeTextarea);
+        });
+
+        // Trigger the resizeTextarea function for initially filled textareas
+        textareas.forEach((textarea) => {
+            resizeTextarea.call(textarea);
+        });
     </script>
 </body>
 <footer>

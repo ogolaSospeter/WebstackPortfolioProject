@@ -15,29 +15,44 @@
     <br><br>
     <br><br>
     <hr>
+    <div class="namerow">
+        <div class="titlecard">
+            <h3 style="text-align: center;">Description:</h3>
+        </div>
+        <div class="itemcard">
+            <h3 style="text-align: center;">{{post['rdescription']}}</h3>
+        </div>
+    </div>
     <br>
-    <h3 style="text-align: center;">Description:</h3>
-
-    <p>
-        {{post['rdescription']}}
-    </p><br><br>
-    <h4 style="text-align: center;">.... Ingredients ......</h4>
-    <br>
+    <div class="namerow">
+        <div class="titlecard">
+            <h4 style="text-align: center;">.... Ingredients ......</h4>
+        </div>
+        <div class="itemcard">
+            <p>
+                {{ post['ringredients']|safe }}
+            </p>
+        </div>
+    </div>
     <hr>
+    <div class="namerow">
+        <div class="titlecard">
+            <h4 style="text-align: center;">.... Procedure. ......</h4>
 
-    <p>
-        {{post['ringredients']}}
-    </p>
-    <br><br>
-    <hr>
+        </div>
+        <div class="itemcard">
+            <p>
+                {{ post['rprocedure']|safe }}
+            </p>
+        </div>
+    </div>
 
-    <h4 style="text-align: center;">.... Procedure. ......</h4>
-    <p>
-        {{post['rprocedure']}}
-    </p>
-    <button style="width: 200px;" class="btn btn-primary">
+    <div style="display: flex; justify-content: center;">
+        <button style="width: 200px;" class="btn btn-primary">
         <a href="{{ url_for('edit', id=post['id']) }}" class="form-group" style="color: white;">Edit</a>
     </button>
+    </div>
+
     <br><br>
 
 </body>

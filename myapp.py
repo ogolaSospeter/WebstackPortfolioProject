@@ -55,10 +55,14 @@ def login():
                             (useremail, userpassword)).fetchone()
         conn.close()
 
-        if user:
+        if user :
             if useremail == 'ogolasospeter62@gmail.com' and userpassword == 'admin' or useremail == 'captainsos483@gmail.com' and userpassword == 'Admin':
+                
+                flash('Login successful!', 'success')
                 return redirect(url_for('admin'))
+
             return redirect(url_for('index'))
+            
            
             # User credentials are correct, redirect to the main page
             # flash('Login successful!')
@@ -68,6 +72,39 @@ def login():
             return redirect(url_for('login'))
 
     return render_template('login.html')
+
+@app.route('/resetpassword', methods=('GET', 'POST'))
+def resetpassword():
+    if request.method == 'POST':
+        useremail = request.form['useremail']
+        # oldpassword = request.form['oldpassword']
+        newpassword = request.form['newpassword']
+        confirmpassword = request.form['confirmpassword']
+
+  
+        conn = get_db_connection()
+        user = conn.execute('SELECT * FROM loggedUsers WHERE useremail = ? ',(useremail,)).fetchone()
+
+        if user and newpassword == confirmpassword:
+            if user[3] == newpassword:
+                flash('New password cannot be the same as old password!', 'error')
+                return redirect(url_for('resetpassword'))
+            conn.execute('UPDATE loggedUsers SET userpassword = ? WHERE useremail = ?',(newpassword, useremail))
+            conn.commit()
+            conn.close()
+            flash(f'Password reset successful!', 'success')
+            return redirect(url_for('login'))
+
+        else:
+            flash('Invalid email or password!')
+            return redirect(url_for('login'))
+
+    return render_template('forgotpassword.html')
+            
+           
+            # User credentials are correct, redirect to the main page
+            # flash('Login successful!')
+
 ###############################################################################
 #admin function routings
 @app.route('/admin')
@@ -245,6 +282,10 @@ def about():
 def contact():
     return render_template('contact.html')
 
+@app.route('/notifications')
+def notifications():
+    return render_template('adminPages/adminNotifications.html')
+
 @app.route('/breakfast')
 def breakfast():
     return render_template('breakfast.html')
@@ -276,6 +317,7 @@ def get_post(post_id):
     if post is None:
         abort(404)
     return post
+
 
 @app.route('/<int:post_id>/post')
 def post(post_id):

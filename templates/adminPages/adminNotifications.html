@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Notifications</title>
+</head>
+
+<body>
+    <h1>Admin Notifications</h1>
+
+    <h2>Messages</h2>
+    <ul id="messageNotifications">
+        <!-- JavaScript will populate this list with messages -->
+    </ul>
+
+    <h2>Pending Items to Approve</h2>
+    <ul id="pendingItems">
+        <!-- JavaScript will populate this list with pending items -->
+    </ul>
+
+    <!-- JavaScript to fetch and display notifications -->
+    <script>
+        // Simulate fetching data (you should replace this with actual data retrieval)
+        const messagesData = [
+            "You have a new message from User A.",
+            "User B sent you a message.",
+        ];
+
+        const pendingItemsData = [
+            "Pending Item 1",
+            "Pending Item 2",
+        ];
+
+        // Function to populate the message notifications list
+        function populateMessageNotifications() {
+            const messageNotifications = document.getElementById("messageNotifications");
+            messagesData.forEach(message => {
+                const listItem = document.createElement("li");
+                listItem.textContent = message;
+                messageNotifications.appendChild(listItem);
+            });
+        }
+
+        // Function to populate the pending items list
+        function populatePendingItems() {
+            const pendingItems = document.getElementById("pendingItems");
+            pendingItemsData.forEach(item => {
+                const listItem = document.createElement("li");
+                listItem.textContent = item;
+                pendingItems.appendChild(listItem);
+            });
+        }
+
+        // Call the functions to populate the lists
+        populateMessageNotifications();
+        populatePendingItems();
+    </script>
+</body>
+
+</html>
