@@ -184,16 +184,6 @@ def edit(id):
     return render_template('adminPages/adminEdit.html', post=post)
 
 
-
-# @app.route('/await_list')
-# def await_list():
-#     conct = wait_db_connection()
-#     waitposts = conct.execute('SELECT * FROM awaitrecipes').fetchall()
-#     conct.close()
-#     if waitposts is None:
-#         return render_template('error.html')
-#     return render_template('adminPages/awaitList.html',waitposts=waitposts)
-
 @app.route('/await_list')
 def await_list():
     conct = wait_db_connection()
@@ -269,8 +259,6 @@ def itm(item):
 
 #####################################################################################################
 #users
-#######################################################################
-
 
 ######################################################################
 
@@ -376,3 +364,8 @@ def search():
     conn.close()
 
     return {'results': search_results}
+
+@app.route('/exit')
+def exit():
+    app.close()
+
