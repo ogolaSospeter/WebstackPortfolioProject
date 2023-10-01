@@ -30,4 +30,4 @@ Explore Skyliner Resumes on [GitHub](https://github.com/ogolaSospeter/WebstackPo
 
 ## Copyright
 
-© 2021 Skyliner Resumes
+© 2021 Skyliner Resumes Dev.
