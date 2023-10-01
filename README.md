@@ -1,23 +1,33 @@
-#Write the project Readme file
+# Skyliner Resumes
 
+
+Welcome to Skyliner Resumes, a collection of resumes for users to explore. Users can also suggest additional resumes to be added to the website.
+=======
 <h3>Skyliner Resumes" </h3>
 
-echo "This is a collection of resumes for use by the users. The users can, however, suggest more resumes to be added to the website" >> README.md
 
-#add some images from the images folder
+## Project Description
 
-<p><img src="/images/login.jpg" alt="login" width="200" height="200" /></p>
-<p><img src="/images/register.jpg" alt="register" width="200" height="200" /></p>
-<p><img src="/images/main.jpg" alt="home" width="200" height="200" /></p>
-<p><img src="/images/newrecipe.jpg" alt="new recipe" width="200" height="200" /></p>
+Skyliner Resumes is a platform that provides a curated collection of resumes for users to browse. The goal is to offer a diverse set of resumes, showcasing different skills, experiences, and formats. Users are encouraged to suggest more resumes to enhance the variety and usefulness of the platform.
 
-#Add the link to the website
+## Screenshots
 
-<a href="https://github.com/ogolaSospeter/WebstackPortfolioProject/">Skyliner Resumes</a>
+![Login](/images/login.jpg)
+*Login Page*
 
-#add copyright
+![Register](/images/register.jpg)
+*Registration Page*
 
-echo "© 2021 Skyliner Resumes" >> README.md
+![Home](/images/main.jpg)
+*Home Page*
 
+![New Recipe](/images/newrecipe.jpg)
+*New Recipe Page*
 
+## Website Link
 
+Explore Skyliner Resumes on [GitHub](https://github.com/ogolaSospeter/WebstackPortfolioProject/).
+
+## Copyright
+
+© 2021 Skyliner Resumes
