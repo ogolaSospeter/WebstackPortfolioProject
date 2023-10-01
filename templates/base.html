@@ -161,6 +161,15 @@
                     <input class="form-control me-sm-2" type="search" placeholder="Search">
                     <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
                 </form>
+
+                <span style="color: white;">
+                    {% if session['username'] %}
+                    <p>Welcome, {session.username}</p>
+                    {% else %}
+                    <a href="{{ url_for('login') }}">Login</a>
+                    {% endif %}
+
+                </span>
             </div>
         </div>
     </nav>

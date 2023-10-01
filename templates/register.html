@@ -16,12 +16,13 @@
                                 <input type="password" name="password" id="typePasswordX-2" placeholder="Password" class="form-control form-control-lg" value="{{ request.form['password'] }}" required />
                             </div>
 
-                            <button class="btn btn-primary btn-lg btn-block" type="submit">Register</button>
+                            <button class="btn btn-outline-primary" type="submit">Register</button>
 
                             <hr class="my-4">
-
-                            <button class="btn btn-primary btn-lg btn-block" type="submit"><i class="fab fa-google me-2"></i> Register with google</button>
-                            <button class="btn btn-primary btn-lg btn-block" type="submit"><i class="fab fa-facebook-f me-2"></i>Register with facebook</button>
+                            <div class="d-flex justify-content-around">
+                                <button class="btn btn-outline-primary" type="submit"><i class="fab fa-google me-2"></i> Google</button>
+                                <button class="btn btn-outline-primary" type="submit"><i class="fab fa-facebook-f me-2"></i>Facebook</button>
+                            </div>
                             <br><br>
 
                         </form>
