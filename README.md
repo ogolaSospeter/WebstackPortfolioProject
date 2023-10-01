@@ -12,16 +12,16 @@ Skyliner Resumes is a platform that provides a curated collection of resumes for
 
 ## Screenshots
 
-![Login](/images/login.jpg)
+![Login](/templates/images/login.jpg)
 *Login Page*
 
-![Register](/images/register.jpg)
+![Register](/templates/images/register.jpg)
 *Registration Page*
 
-![Home](/images/main.jpg)
+![Home](/templates/images/main.jpg)
 *Home Page*
 
-![New Recipe](/images/newrecipe.jpg)
+![New Recipe](/templates/images/newrecipe.jpg)
 *New Recipe Page*
 
 ## Website Link
@@ -30,4 +30,4 @@ Explore Skyliner Resumes on [GitHub](https://github.com/ogolaSospeter/WebstackPo
 
 ## Copyright
 
-© 2021 Skyliner Resumes
+© 2021 Skyliner Resumes Dev.
