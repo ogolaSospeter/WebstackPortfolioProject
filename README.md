@@ -1,6 +1,6 @@
 #Write the project Readme file
 
-echo "## Skyliner Resumes" > README.md
+<h3>Skyliner Resumes" </h3>
 
 echo "This is a collection of resumes for use by the users. The users can, however, suggest more resumes to be added to the website" >> README.md
 
