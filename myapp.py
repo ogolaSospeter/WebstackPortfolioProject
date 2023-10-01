@@ -55,10 +55,14 @@ def login():
                             (useremail, userpassword)).fetchone()
         conn.close()
 
-        if user:
+        if user :
             if useremail == 'ogolasospeter62@gmail.com' and userpassword == 'admin' or useremail == 'captainsos483@gmail.com' and userpassword == 'Admin':
+                
+                flash('Login successful!', 'success')
                 return redirect(url_for('admin'))
+
             return redirect(url_for('index'))
+            
            
             # User credentials are correct, redirect to the main page
             # flash('Login successful!')
@@ -68,6 +72,39 @@ def login():
             return redirect(url_for('login'))
 
     return render_template('login.html')
+
+@app.route('/resetpassword', methods=('GET', 'POST'))
+def resetpassword():
+    if request.method == 'POST':
+        useremail = request.form['useremail']
+        # oldpassword = request.form['oldpassword']
+        newpassword = request.form['newpassword']
+        confirmpassword = request.form['confirmpassword']
+
+  
+        conn = get_db_connection()
+        user = conn.execute('SELECT * FROM loggedUsers WHERE useremail = ? ',(useremail,)).fetchone()
+
+        if user and newpassword == confirmpassword:
+            if user[3] == newpassword:
+                flash('New password cannot be the same as old password!', 'error')
+                return redirect(url_for('resetpassword'))
+            conn.execute('UPDATE loggedUsers SET userpassword = ? WHERE useremail = ?',(newpassword, useremail))
+            conn.commit()
+            conn.close()
+            flash(f'Password reset successful!', 'success')
+            return redirect(url_for('login'))
+
+        else:
+            flash('Invalid email or password!')
+            return redirect(url_for('login'))
+
+    return render_template('forgotpassword.html')
+            
+           
+            # User credentials are correct, redirect to the main page
+            # flash('Login successful!')
+
 ###############################################################################
 #admin function routings
 @app.route('/admin')
@@ -91,6 +128,10 @@ def admin_post(post_id):
 def adminpost(post_id):
     post = admin_post(post_id)
     return render_template('adminPages/adminPost.html', post=post)
+
+@app.route('/payment')
+def payment():
+    return render_template('payment.html')
 
 @app.route('/<int:id>/delete', methods=('POST','GET'))
 def delete(id):
@@ -126,8 +167,12 @@ def edit(id):
         ingredients = request.form['ingredient']
         procedure = request.form['procedure']
         img1 = request.form['img1']
-        img2 = request.form['img2']
+        img2 = request.form['img2'] 
+        if img2 == '':
+            img2 = img1
         img3 = request.form['img3']
+        if img3 == '':
+            img3 = img1
 
         conn = get_db_connection()
         conn.execute('UPDATE recipes SET  rname = ?, rcategory = ?, rimage = ?, rdescription = ?, ringredients = ?, rprocedure = ?, image1 = ?, image2 = ?, image3 = ? WHERE id = ?',(name,category,image,description,ingredients,procedure,img1,img2,img3, id,))
@@ -138,16 +183,6 @@ def edit(id):
 
     return render_template('adminPages/adminEdit.html', post=post)
 
-
-
-# @app.route('/await_list')
-# def await_list():
-#     conct = wait_db_connection()
-#     waitposts = conct.execute('SELECT * FROM awaitrecipes').fetchall()
-#     conct.close()
-#     if waitposts is None:
-#         return render_template('error.html')
-#     return render_template('adminPages/awaitList.html',waitposts=waitposts)
 
 @app.route('/await_list')
 def await_list():
@@ -166,6 +201,20 @@ def wait_item(item):
     if itm is None:
         abort(404)
     return itm
+
+def get_moduled_post(post_cat):
+    conn = get_db_connection()
+    cats = conn.execute('SELECT * FROM recipes WHERE rcategory = ?',
+                        (post_cat,)).fetchall()
+    conn.close()
+    if cats is None:
+        abort(404)
+    return cats
+
+@app.route('/adminmoduled_cat/<post_cat>')
+def adminmoduled_cat(post_cat):
+    cats = get_moduled_post(post_cat)
+    return render_template('adminPages/adminmoduled.html',cats=cats,post_cat=post_cat)
 
 # @app.route('/<int:item>/itm', methods=('GET', 'POST'))
 # def itm(item):
@@ -210,8 +259,6 @@ def itm(item):
 
 #####################################################################################################
 #users
-#######################################################################
-
 
 ######################################################################
 
@@ -222,6 +269,10 @@ def about():
 @app.route('/contact')
 def contact():
     return render_template('contact.html')
+
+@app.route('/notifications')
+def notifications():
+    return render_template('adminPages/adminNotifications.html')
 
 @app.route('/breakfast')
 def breakfast():
@@ -254,6 +305,7 @@ def get_post(post_id):
     if post is None:
         abort(404)
     return post
+
 
 @app.route('/<int:post_id>/post')
 def post(post_id):
@@ -312,3 +364,8 @@ def search():
     conn.close()
 
     return {'results': search_results}
+
+@app.route('/exit')
+def exit():
+    app.close()
+
