@@ -13,15 +13,19 @@ Skyliner Resumes is a platform that provides a curated collection of resumes for
 ## Screenshots
 
 ![Login](/templates/images/login.jpg)
+
 *Login Page*
 
 ![Register](/templates/images/register.jpg)
+
 *Registration Page*
 
 ![Home](/templates/images/main.jpg)
+
 *Home Page*
 
 ![New Recipe](/templates/images/newrecipe.jpg)
+
 *New Recipe Page*
 
 ## Website Link
